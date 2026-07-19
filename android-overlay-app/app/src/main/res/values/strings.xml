@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Game Overlay</string>
+    <string name="grant_overlay">อนุญาตให้แสดงทับแอปอื่น</string>
+    <string name="start_overlay">เปิด Overlay</string>
+    <string name="stop_overlay">ปิด Overlay</string>
+    <string name="notice">
+        หมายเหตุ: CPU% อ่านจาก /proc/stat ซึ่งบางเครื่อง (Android 8+ / ผู้ผลิตบางราย)
+        อาจถูกจำกัดสิทธิ์และอ่านไม่ได้ — จะแสดง N/A แทน\n
+        GPU% ไม่สามารถอ่านได้บนเครื่องที่ไม่ได้ root\n
+        FPS ที่แสดงคือเฟรมเรตของ HUD เอง ไม่ใช่ของเกมอื่น (แอปทั่วไปอ่าน FPS ของแอปอื่นไม่ได้หากไม่ root)
+    </string>
+</resources>

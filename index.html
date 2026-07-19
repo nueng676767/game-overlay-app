@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Overlay — HUD วัดสเปกเรียลไทม์ สำหรับ Windows &amp; Android</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- scanline / grid ambience -->
+<div class="grid-veil" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+<!-- ===== live telemetry ticker ===== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ===== nav ===== -->
+<header class="nav">
+  <div class="nav-mark">
+    <span class="nav-dot"></span> GAME OVERLAY
+  </div>
+  <nav class="nav-links">
+    <a href="#matrix">รองรับอะไรบ้าง</a>
+    <a href="#features">ฟีเจอร์</a>
+    <a href="#download">ดาวน์โหลด</a>
+  </nav>
+  <a href="#download" class="nav-cta">ดาวน์โหลด</a>
+</header>
+
+<main>
+
+  <!-- ===== hero ===== -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">v1.0 · WINDOWS &amp; ANDROID</p>
+      <h1>ตัวเลขเครื่องคุณ<br><span class="accent">แบบเรียลไทม์</span> ลอยบนหน้าจอ</h1>
+      <p class="lede">FPS · CPU · GPU · อุณหภูมิ · RAM — อัปเดตทุก 500ms
+        ลากวางตำแหน่งได้อิสระ ปรับสี ขนาด ความโปร่งใสได้ทุกอย่าง</p>
+      <div class="hero-ctas">
+        <a href="#download" class="btn btn-primary">
+          <span>ดาวน์โหลดฟรี</span><small>เลือกแพลตฟอร์มด้านล่าง</small>
+        </a>
+        <a href="#matrix" class="btn btn-ghost">ดูว่าค่าไหนอ่านจริงได้บ้าง</a>
+      </div>
+    </div>
+
+    <div class="hero-stage">
+      <div class="hud-demo" id="heroHud"></div>
+      <p class="hero-note">ตัวอย่างเคลื่อนไหว — ในแอปจริงคือค่าจากเซนเซอร์เครื่องคุณ</p>
+    </div>
+  </section>
+
+  <!-- ===== capability matrix (honest, not marketing fluff) ===== -->
+  <section id="matrix" class="matrix">
+    <h2>ค่าไหน<span class="accent">อ่านได้จริง</span> ค่าไหนต้องมีเงื่อนไข</h2>
+    <p class="section-sub">เราไม่ใส่ตัวเลขหลอกในแอปจริง — ถ้าอ่านค่าไม่ได้ จะโชว์ N/A ตรงๆ</p>
+
+    <div class="matrix-grid">
+      <div class="matrix-col">
+        <div class="matrix-head win"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 5.5 10.5 4.4v7.2H3V5.5Zm8.4-1.2L21 3v8.4h-9.6V4.3ZM3 12.7h7.5V20L3 18.9v-6.2Zm8.4 0H21V21l-9.6-1.4v-6.9Z" fill="currentColor"/></svg> Windows</div>
+        <ul>
+          <li class="ok"><b>CPU / RAM</b><span>อ่านจริงทันที</span></li>
+          <li class="warn"><b>CPU / GPU Temp · VRAM</b><span>อ่านจริง — ต้องรันแบบ Admin</span></li>
+          <li class="warn"><b>FPS</b><span>อ่านจริง — ต้องติดตั้ง RTSS (ฟรี) ไว้เบื้องหลัง</span></li>
+        </ul>
+      </div>
+      <div class="matrix-col">
+        <div class="matrix-head android"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6.5 9.5v6M17.5 9.5v6M8 20h8v-1.2H8V20Zm-.3-13.6.9-1.6M16.3 6.4l-.9-1.6M7.5 9.5h9v6.8a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V9.5Zm.3-2.3a4.2 4.2 0 0 1 8.4 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Android</div>
+        <ul>
+          <li class="ok"><b>RAM</b><span>อ่านจริงทันที</span></li>
+          <li class="ok"><b>อุณหภูมิแบตเตอรี่</b><span>อ่านจริงทันที</span></li>
+          <li class="warn"><b>CPU %</b><span>อ่านจริงถ้าเครื่อง/ผู้ผลิตไม่บล็อก proc/stat</span></li>
+          <li class="no"><b>FPS ของเกม / GPU %</b><span>ไม่มี API สาธารณะแบบไม่ root — ไม่ใส่ค่าหลอก</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== features ===== -->
+  <section id="features" class="features">
+    <h2>ปรับแต่งได้<span class="accent">ทุกพิกเซล</span></h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-tag">01</div>
+        <h3>ลากวางตำแหน่งได้</h3>
+        <p>จับที่จุดจับ แล้วย้าย HUD ไปมุมไหนของจอก็ได้ ตำแหน่งจำไว้ให้อัตโนมัติ</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-tag">02</div>
+        <h3>5 ธีมสี · 3 ขนาด</h3>
+        <p>ปรับให้เข้ากับธีมเกมหรือความชอบ ความโปร่งใสปรับได้ตั้งแต่ 20–100%</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-tag">03</div>
+        <h3>เลือกเปิด/ปิดทีละค่า</h3>
+        <p>ไม่อยากเห็น RAM ก็ปิดได้ อยากเห็นแค่ FPS กับ TEMP ก็เลือกได้เอง</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-tag">04</div>
+        <h3>แจ้งเตือนความร้อนสูง</h3>
+        <p>สั่นหรือส่งเสียงเตือนทันทีที่อุณหภูมิเกินเกณฑ์ที่ตั้งไว้</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== download ===== -->
+  <section id="download" class="download">
+    <h2>เลือกแพลตฟอร์ม</h2>
+    <div class="download-grid">
+
+      <div class="download-card">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 5.5 10.5 4.4v7.2H3V5.5Zm8.4-1.2L21 3v8.4h-9.6V4.3ZM3 12.7h7.5V20L3 18.9v-6.2Zm8.4 0H21V21l-9.6-1.4v-6.9Z" fill="currentColor"/></svg></div>
+        <h3>Windows</h3>
+        <p class="dl-req">Windows 10/11 · .NET 8 SDK</p>
+        <a href="downloads/windows-overlay-app.zip" class="btn btn-primary btn-block" download>ดาวน์โหลดโปรเจกต์ Windows</a>
+        <p class="dl-fine">ซอร์สโค้ด C# พร้อม build · ต้องมี RTSS สำหรับ FPS จริง · รันแบบ Admin สำหรับอุณหภูมิ</p>
+      </div>
+
+      <div class="download-card">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 9.5v6M17.5 9.5v6M8 20h8v-1.2H8V20Zm-.3-13.6.9-1.6M16.3 6.4l-.9-1.6M7.5 9.5h9v6.8a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V9.5Zm.3-2.3a4.2 4.2 0 0 1 8.4 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        <h3>Android</h3>
+        <p class="dl-req">Android 8.0+ · Android Studio</p>
+        <a href="downloads/android-overlay-app.zip" class="btn btn-primary btn-block" download>ดาวน์โหลดโปรเจกต์ Android</a>
+        <p class="dl-fine">ซอร์สโค้ด Kotlin พร้อม build · ต้องอนุญาต "แสดงทับแอปอื่น" ครั้งแรกที่เปิดใช้</p>
+      </div>
+
+    </div>
+    <p class="download-footnote">ทั้งสองไฟล์เป็น <b>โปรเจกต์ซอร์สโค้ดจริง</b> ที่อ่านค่า FPS/CPU/GPU/TEMP จากเซนเซอร์เครื่องจริง — เปิดด้วย Visual Studio (Windows) หรือ Android Studio (Android) แล้วกด build ก่อนใช้งาน รายละเอียดอยู่ใน README.md ข้างในแต่ละโฟลเดอร์</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>GAME OVERLAY — ทำเพื่อคนที่อยากรู้ว่าเครื่องกำลังทำงานหนักแค่ไหน</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

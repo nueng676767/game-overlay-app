@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.GameOverlay" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="colorPrimary">@color/cyan</item>
+    </style>
+</resources>
